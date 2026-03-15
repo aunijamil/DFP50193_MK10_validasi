@@ -1,0 +1,82 @@
+.body{
+font-family: Arial;
+background-color: #f0f8ff;
+}
+
+.container{
+width: 500px;
+margin: auto;
+background: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0px 0px 10px gray;
+}
+
+.title{
+text-align: center;
+color: #2c3e50;
+}
+
+.label{
+font-weight: bold;
+display: block;
+margin-top: 10px;
+}
+
+.input{
+width: 100%;
+padding: 8px;
+margin-top: 5px;
+border-radius: 5px;
+border: 1px solid #ccc;
+}
+
+.textarea{
+width: 100%;
+height: 100px;
+padding: 8px;
+border-radius: 5px;
+border: 1px solid #ccc;
+}
+
+.radio{
+margin-right: 5px;
+}
+
+.checkbox{
+margin-right: 5px;
+}
+
+.submit{
+background-color: green;
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+}
+
+.reset{
+background-color: red;
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+}
+
+.error{
+color: red;
+font-weight: bold;
+}
+
+.success{
+color: green;
+font-weight: bold;
+}
+
+.link{
+display: inline-block;
+margin-top: 20px;
+color: blue;
+text-decoration: none;
+font-weight: bold;
+}
