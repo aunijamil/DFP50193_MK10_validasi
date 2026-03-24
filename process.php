@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Keputusan Permohonan</title>
     <link rel="stylesheet" href="style.css">
@@ -110,4 +111,5 @@
     </div>
 
 </body>
+
 </html>

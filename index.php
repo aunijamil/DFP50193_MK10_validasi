@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Borang Permohonan Pinjaman Komputer Riba</title>
     <link rel="stylesheet" href="style.css">
@@ -65,4 +66,5 @@
     </div>
 
 </body>
+
 </html>
