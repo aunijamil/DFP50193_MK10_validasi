@@ -1,115 +1,58 @@
-<!DOCTYPE html>
-<html>
+<?php
+session_start();
 
-<head>
-    <title>Keputusan Permohonan</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+$nama = $_POST['nama'] ?? '';
+$matrik = $_POST['matrik'] ?? '';
+$no_tel = $_POST['no_tel'] ?? '';
+$tarikh = $_POST['tarikh'] ?? '';
+$program = $_POST['program'] ?? '';
+$jenis = $_POST['jenis'] ?? '';
+$alasan = $_POST['alasan'] ?? '';
+$tujuan = $_POST['tujuan'] ?? []; // tetap array
 
-<body class="body">
+$errors = [];
 
-    <div class="container">
+// Validation
+if (trim($nama) == "")
+    $errors[] = "Sila masukkan Nama Pelajar";
+if (trim($matrik) == "")
+    $errors[] = "Sila masukkan No Matrik";
+if (trim($no_tel) == "")
+    $errors[] = "Sila masukkan No Telefon";
+elseif (!ctype_digit($no_tel))
+    $errors[] = "No Telefon mesti mengandungi digit sahaja";
+if (trim($tarikh) == "")
+    $errors[] = "Sila masukkan Tarikh Permohonan";
+if (trim($program) == "")
+    $errors[] = "Sila pilih Program Pengajian";
+if (trim($jenis) == "")
+    $errors[] = "Sila pilih Jenis Laptop Diperlukan";
+if (empty($tujuan))
+    $errors[] = "Sila pilih Tujuan Penggunaan";
+if (trim($alasan) == "")
+    $errors[] = "Sila masukkan Alasan Permohonan";
+elseif (strlen($alasan) < 25)
+    $errors[] = "Alasan Permohonan mesti sekurang-kurangnya 25 aksara";
 
-        <h2 class="title">Semakan Permohonan</h2>
+// Handle errors
+if (!empty($errors)) {
+    $_SESSION['errors'] = $errors;
+    $_SESSION['inputs'] = $_POST;
+    header("Location: index.php");
+    exit();
+}
 
-        <?php
+// Save success data
+$_SESSION['success_data'] = [
+    'nama' => htmlspecialchars($nama),
+    'matrik' => htmlspecialchars($matrik),
+    'no_tel' => htmlspecialchars($no_tel),
+    'tarikh' => htmlspecialchars($tarikh),
+    'program' => htmlspecialchars($program),
+    'jenis' => htmlspecialchars($jenis),
+    'tujuan' => array_map('htmlspecialchars', $tujuan),
+    'alasan' => htmlspecialchars($alasan)
+];
 
-        // Retrieve form data securely using null coalescing operator
-        $nama = $_POST['nama'] ?? '';
-        $matrik = $_POST['matrik'] ?? '';
-        $umur = $_POST['umur'] ?? '';
-        $tarikh = $_POST['tarikh'] ?? '';
-        $program = $_POST['program'] ?? '';
-        $jenis = $_POST['jenis'] ?? '';
-        $alasan = $_POST['alasan'] ?? '';
-
-        // Handle array input for 'tujuan' (checkboxes)
-        $tujuan = "";
-        if (isset($_POST['tujuan'])) {
-            $tujuan = implode(", ", $_POST['tujuan']);
-        }
-
-        // Initialize error flag
-        $error = false;
-
-        // Validate Name
-        if ($nama == "") {
-            echo "<p class='error'>Nama tidak boleh kosong</p>";
-            $error = true;
-        }
-
-        // Validate Matrix Number
-        if ($matrik == "") {
-            echo "<p class='error'>No Matrik tidak boleh kosong</p>";
-            $error = true;
-        }
-
-        // Validate Age
-        if ($umur == "") {
-            echo "<p class='error'>Umur tidak boleh kosong</p>";
-            $error = true;
-        }
-
-        // Validate Date
-        if ($tarikh == "") {
-            echo "<p class='error'>Tarikh tidak boleh kosong</p>";
-            $error = true;
-        }
-
-        // Validate Program Selection
-        if ($program == "") {
-            echo "<p class='error'>Program mesti dipilih</p>";
-            $error = true;
-        }
-
-        // Validate Laptop Type
-        if ($jenis == "") {
-            echo "<p class='error'>Jenis laptop mesti dipilih</p>";
-            $error = true;
-        }
-
-        // Validate Purpose
-        if ($tujuan == "") {
-            echo "<p class='error'>Tujuan mesti dipilih</p>";
-            $error = true;
-        }
-
-        // Validate Reason (Not empty)
-        if ($alasan == "") {
-            echo "<p class='error'>Alasan tidak boleh kosong</p>";
-            $error = true;
-        }
-
-        // Validate Reason (Length check)
-        if (strlen($alasan) < 25) {
-            echo "<p class='error'>Alasan mesti sekurang-kurangnya 25 aksara</p>";
-            $error = true;
-        }
-
-        // Display submitted data if validation passes
-        if ($error == false) {
-
-            echo "<p class='success'>Permohonan berjaya dihantar</p>";
-
-            echo "<p>Nama: $nama</p>";
-            echo "<p>No Matrik: $matrik</p>";
-            echo "<p>Umur: $umur</p>";
-            echo "<p>Tarikh: $tarikh</p>";
-            echo "<p>Program: $program</p>";
-            echo "<p>Jenis Laptop: $jenis</p>";
-            echo "<p>Tujuan: $tujuan</p>";
-            echo "<p>Alasan: $alasan</p>";
-
-        }
-
-        ?>
-
-        <br>
-
-        <a href="index.php" class="link">Kembali ke Borang Permohonan</a>
-
-    </div>
-
-</body>
-
-</html>
+header("Location: result.php");
+exit();

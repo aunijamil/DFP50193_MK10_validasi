@@ -1,66 +1,93 @@
+<?php
+session_start();
+$errors = $_SESSION['errors'] ?? [];
+$inputs = $_SESSION['inputs'] ?? [];
+unset($_SESSION['errors'], $_SESSION['inputs']);
+?>
 <!DOCTYPE html>
-<html>
+<html lang="ms">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borang Permohonan Pinjaman Komputer Riba</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="body">
+<body>
 
     <div class="container">
         <h2 class="title">Permohonan Skim Pinjaman Komputer Riba</h2>
 
-        <!-- Form start: Sends data to process.php via POST -->
-        <form class="form" method="POST" action="process.php">
+        <?php if (!empty($errors)): ?>
+            <div class="error-box">
+                <?php foreach ($errors as $error): ?>
+                    <p><?= htmlspecialchars($error) ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
 
-            <!-- Personal Details Section -->
-            <label class="label">Nama Pelajar</label>
-            <input type="text" name="nama" class="input">
+        <form method="POST" action="process.php">
 
-            <label class="label">No Matrik</label>
-            <input type="text" name="matrik" class="input">
+            <div class="form-group">
+                <label class="result-label">Nama Pelajar</label>
+                <input type="text" name="nama" class="input-text"
+                    value="<?= htmlspecialchars($inputs['nama'] ?? ''); ?>">
+            </div>
 
-            <label class="label">Umur</label>
-            <input type="number" name="umur" class="input">
+            <div class="form-group">
+                <label class="result-label">No Matrik</label>
+                <input type="text" name="matrik" class="input-text"
+                    value="<?= htmlspecialchars($inputs['matrik'] ?? ''); ?>">
+            </div>
 
-            <label class="label">Tarikh Permohonan</label>
-            <input type="date" name="tarikh" class="input">
+            <div class="form-group">
+                <label class="result-label">No Telefon</label>
+                <input type="number" name="no_tel" class="input-number"
+                    value="<?= htmlspecialchars($inputs['no_tel'] ?? ''); ?>">
+            </div>
 
-            <!-- Program Selection -->
-            <label class="label">Program Pengajian</label>
-            <select name="program" class="input">
-                <option value="">--Sila Pilih--</option>
-                <option value="Diploma IT">Diploma IT</option>
-                <option value="Diploma Multimedia">Diploma Multimedia</option>
-                <option value="Diploma Software">Diploma Software</option>
-            </select>
+            <div class="form-group">
+                <label class="result-label">Tarikh Permohonan</label>
+                <input type="date" name="tarikh" class="input-date"
+                    value="<?= htmlspecialchars($inputs['tarikh'] ?? ''); ?>">
+            </div>
 
-            <!-- Laptop Type Selection (Radio) -->
-            <label class="label">Jenis Laptop Diperlukan</label>
-            <input type="radio" name="jenis" value="Basic" class="radio"> Basic
-            <input type="radio" name="jenis" value="Standard" class="radio"> Standard
-            <input type="radio" name="jenis" value="High Performance" class="radio"> High Performance
+            <div class="form-group">
+                <label class="result-label">Program Pengajian</label>
+                <select name="program" class="input-select">
+                    <option value="">--Sila Pilih--</option>
+                    <option value="Diploma IT" <?= ($inputs['program'] ?? '') == 'Diploma IT' ? 'selected' : ''; ?>>Diploma
+                        IT</option>
+                    <option value="Diploma Multimedia" <?= ($inputs['program'] ?? '') == 'Diploma Multimedia' ? 'selected' : ''; ?>>Diploma Multimedia</option>
+                    <option value="Diploma Software" <?= ($inputs['program'] ?? '') == 'Diploma Software' ? 'selected' : ''; ?>>Diploma Software</option>
+                </select>
+            </div>
 
-            <br><br>
+            <div class="form-group">
+                <label class="result-label">Jenis Laptop Diperlukan</label>
+                <input type="radio" name="jenis" value="Basic" class="input-radio" <?= ($inputs['jenis'] ?? '') == 'Basic' ? 'checked' : ''; ?>> Basic
+                <input type="radio" name="jenis" value="Standard" class="input-radio" <?= ($inputs['jenis'] ?? '') == 'Standard' ? 'checked' : ''; ?>> Standard
+                <input type="radio" name="jenis" value="High Performance" class="input-radio" <?= ($inputs['jenis'] ?? '') == 'High Performance' ? 'checked' : ''; ?>> High Performance
+            </div>
 
-            <!-- Usage Purpose (Checkbox) -->
-            <label class="label">Tujuan Penggunaan</label>
-            <input type="checkbox" name="tujuan[]" value="Assignment" class="checkbox"> Assignment
-            <input type="checkbox" name="tujuan[]" value="Programming" class="checkbox"> Programming
-            <input type="checkbox" name="tujuan[]" value="Design" class="checkbox"> Design
+            <div class="form-group">
+                <label class="result-label">Tujuan Penggunaan</label>
+                <input type="checkbox" name="tujuan[]" value="Assignment" class="input-checkbox"
+                    <?= in_array('Assignment', $inputs['tujuan'] ?? []) ? 'checked' : ''; ?>> Assignment
+                <input type="checkbox" name="tujuan[]" value="Programming" class="input-checkbox"
+                    <?= in_array('Programming', $inputs['tujuan'] ?? []) ? 'checked' : ''; ?>> Programming
+                <input type="checkbox" name="tujuan[]" value="Design" class="input-checkbox" <?= in_array('Design', $inputs['tujuan'] ?? []) ? 'checked' : ''; ?>> Design
+            </div>
 
-            <br><br>
+            <div class="form-group">
+                <label class="result-label">Alasan Permohonan</label>
+                <textarea name="alasan"
+                    class="input-textarea"><?= htmlspecialchars($inputs['alasan'] ?? ''); ?></textarea>
+            </div>
 
-            <!-- Reason for Application -->
-            <label class="label">Alasan Permohonan</label>
-            <textarea name="alasan" class="textarea"></textarea>
-
-            <br><br>
-
-            <!-- Form Actions -->
-            <button type="submit" class="submit">Hantar</button>
-            <button type="reset" class="reset">Tetap Semula</button>
+            <button type="submit" class="btn-submit">Hantar</button>
+            <button type="reset" class="btn-reset">Tetap Semula</button>
 
         </form>
     </div>

@@ -1,95 +1,167 @@
-.body {
-    /* General Page Styling */
-    font-family: Arial;
-    background-color: #f0f8ff;
+/* Global Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.container {
-    /* Main Container */
-    width: 500px;
-    margin: auto;
-    background: white;
+/* Background */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #eef2f7, #dfe9f3);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px gray;
 }
 
+/* Container */
+.container {
+    max-width: 650px;
+    width: 100%;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Title */
 .title {
-    /* Heading Styling */
     text-align: center;
     color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 24px;
 }
 
-.label {
-    /* Form Labels */
-    font-weight: bold;
+/* Form Group / Result Item */
+.form-group,
+.result-item {
+    margin-bottom: 20px;
+}
+
+/* Labels */
+.result-label {
     display: block;
-    margin-top: 10px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
 }
 
-.input {
-    /* Text Input Fields */
+/* Input fields */
+.input-text,
+.input-number,
+.input-date,
+.input-select,
+.input-textarea {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
-.textarea {
-    /* Textarea Field */
-    width: 100%;
+/* Textarea */
+.input-textarea {
     height: 100px;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    resize: vertical;
 }
 
-.radio {
-    /* Radio Button spacing */
+/* Radio / Checkbox spacing */
+.input-radio,
+.input-checkbox {
     margin-right: 5px;
+    vertical-align: middle;
 }
 
-.checkbox {
-    /* Checkbox spacing */
-    margin-right: 5px;
-}
-
-.submit {
-    /* Submit Button */
-    background-color: green;
+/* Buttons */
+.btn-submit {
+    background: linear-gradient(to right, #32cd32, #2eb82e);
     color: white;
-    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: 0.3s;
 }
 
-.reset {
-    /* Reset Button */
-    background-color: red;
+.btn-submit:hover {
+    background: linear-gradient(to right, #228b22, #1e7b1e);
+}
+
+.btn-reset {
+    background: linear-gradient(to right, #ff4500, #e63e00);
     color: white;
-    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
 }
 
-.error {
-    /* Error Messages */
-    color: red;
+.btn-reset:hover {
+    background: linear-gradient(to right, #cc3700, #b43100);
+}
+
+/* Error Box */
+.error-box {
+    background-color: #ffe4e1;
+    border: 1px solid #ff0000;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    color: #b22222;
+}
+
+/* Success Box */
+.success-box {
+    background-color: #e0ffff;
+    border: 1px solid #00ced1;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    color: #008b8b;
     font-weight: bold;
 }
 
-.success {
-    /* Success Messages */
-    color: green;
-    font-weight: bold;
+/* Result Box */
+.result-box {
+    margin-top: 15px;
 }
 
+/* Result Value */
+.result-value {
+    background: #f5f7fa;
+    padding: 12px;
+    border-radius: 6px;
+    color: #222;
+}
+
+/* Table-like / card style hover effect for result-item */
+.result-item {
+    background: #f9fbff;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.result-item:hover {
+    background: #eef6ff;
+}
+
+/* Link / Back Button */
 .link {
-    /* Navigation Links */
     display: inline-block;
-    margin-top: 20px;
-    color: blue;
+    margin-top: 25px;
+    background: linear-gradient(to right, #3498db, #5dade2);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.link:hover {
+    background: linear-gradient(to right, #2980b9, #3498db);
 }
